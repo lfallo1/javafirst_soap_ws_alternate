@@ -1,10 +1,15 @@
 package com.javafirst.ws.services;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.namespace.QName;
 
 import org.apache.cxf.Bus;
+import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFServlet;
+import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -38,8 +43,31 @@ public class CxfServletConfiguration {
         QName serviceName = new QName("http://customerorders.services.lance.com/", "PaymentProcessor");
         endpoint.setServiceName(serviceName);
         endpoint.publish("/PaymentProcessor");
+     
+        //custom interceptor gets called second. declared out of order intentionally as a reminder that order of declaration is not necessarily relevant when phases are specififed
+        endpoint.getInInterceptors().add(getCustomInterceptor());
+        endpoint.getInInterceptors().add(getAuthInterceptor());
         
         return endpoint;
+    }
+    
+    @Bean
+    public AbstractSoapInterceptor getCustomInterceptor(){
+    	return new CustomInterceptor();
+    }
+    
+    @Bean
+    public AuthHandler getAuthHandler(){
+    	return new AuthHandler();
+    }
+    
+    @Bean
+    public WSS4JInInterceptor getAuthInterceptor(){
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("action", "UsernameToken");
+    	map.put("passwordType", "PasswordText");
+    	map.put("passwordCallbackRef", getAuthHandler());
+    	return new WSS4JInInterceptor(map);
     }
 	
 }

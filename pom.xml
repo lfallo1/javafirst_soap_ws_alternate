@@ -40,31 +40,14 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
 			<version>3.1.7</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-ws-security -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-security</artifactId>
 			<version>3.1.7</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.ws.security/wss4j -->
-		<dependency>
-			<groupId>org.apache.ws.security</groupId>
-			<artifactId>wss4j</artifactId>
-			<version>1.6.19</version>
 		</dependency>
 
 	</dependencies>
