@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.ImportResource;
 
-import com.javafirst.ws.services.fileservice.FileServiceImpl;
+import com.javafirst.ws.services.fileUploadService.FileServiceImpl;
 import com.javafirst.ws.services.interceptors.CustomInterceptor;
 import com.javafirst.ws.services.paymentProcessor.PaymentProcessorImpl;
 import com.javafirst.ws.services.security.AuthHandler;

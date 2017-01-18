@@ -26,7 +26,11 @@ public class AuthHandler implements CallbackHandler {
 	public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
 		for (int i = 0; i < callbacks.length; i++) {
 			WSPasswordCallback pc = (WSPasswordCallback) callbacks[i];
-			pc.setPassword(userService.findPasswordByUsername(pc.getIdentifier()));
+			String password = userService.findPasswordByUsername(pc.getIdentifier());
+			if(password != null){
+				pc.setPassword(password);
+				return;
+			}
 		}
 		throw new Fault(new IOException("INVALID CREDENTIALS!!"));
 	}

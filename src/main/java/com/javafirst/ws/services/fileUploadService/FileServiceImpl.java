@@ -1,4 +1,4 @@
-package com.javafirst.ws.services.fileservice;
+package com.javafirst.ws.services.fileUploadService;
 
 import java.io.File;
 import java.io.FileOutputStream;
