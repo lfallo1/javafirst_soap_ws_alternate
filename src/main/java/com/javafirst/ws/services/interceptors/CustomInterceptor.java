@@ -1,4 +1,4 @@
-package com.javafirst.ws.services;
+package com.javafirst.ws.services.interceptors;
 
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;

@@ -18,7 +18,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.ImportResource;
 
+import com.javafirst.ws.services.fileservice.FileServiceImpl;
+import com.javafirst.ws.services.interceptors.CustomInterceptor;
 import com.javafirst.ws.services.paymentProcessor.PaymentProcessorImpl;
+import com.javafirst.ws.services.security.AuthHandler;
 
 @Configuration
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml" })
@@ -48,6 +51,18 @@ public class CxfServletConfiguration {
         endpoint.getInInterceptors().add(getCustomInterceptor());
         endpoint.getInInterceptors().add(getAuthInterceptor());
         
+        return endpoint;
+    }
+    
+    @DependsOn("servletRegistrationBean")
+    @Bean
+    public EndpointImpl fileService() {
+        Bus bus = (Bus) applicationContext.getBean(Bus.DEFAULT_BUS_ID);
+        EndpointImpl endpoint = new EndpointImpl(bus, new FileServiceImpl());
+        QName serviceName = new QName("http://customerorders.services.lance.com/", "FileService");
+        endpoint.setServiceName(serviceName);
+        endpoint.publish("/FileService");
+        endpoint.getProperties().put("mtom-enabled", true);
         return endpoint;
     }
     
